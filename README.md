@@ -1,5 +1,5 @@
 # README
-Docker_toy_app_caramelcorn
+# Docker_toy_app_caramelcorn
 
 このプロジェクトは、Dockerコンテナ内で動作するRailsアプリケーションを構築するためのものです。以下は、MacでのDockerのインストール手順と、アプリケーションのセットアップ手順です。
 
@@ -8,12 +8,12 @@ MacでDockerをインストールするには、Homebrewを使用します。以
 
 Homebrewのインストール: Homebrewがインストールされていない場合は、ターミナルで以下のコマンドを実行してHomebrewをインストールします。
 
-```
+```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
 Dockerのインストール: Homebrewを使用してDockerをインストールします。
 
-```
+```bash
 brew install --cask docker
 ```
 
@@ -25,45 +25,55 @@ Docker Desktopの起動: インストールが完了したら、Docker Desktop�
 Dockerがインストールされたら、以下の手順でアプリケーションのセットアップを行います。
 
 このプロジェクトをクローンします。
-```zsh
+```bash
 git clone https://github.com/ShinichiKikukawa/Docker_toy_app_caramelcorn.git
 ```
 
-```zsh
+```bash
 cd Docker_toy_app_caramelcorn
 ```
 
-Dockerコンテナをビルドします。
-```zsh
-docker build -t toy_app_caramelcorn .
+イメージをビルドします。
+```bash
+ocker-compose build
 ```
-# イメージのビルド
-docker-compose build
 
-# bundle install
+bundle installします。
+```bash
 docker-compose run --rm web bundle install
-
-# yarn install
+```
+yarn installします。
+```bash
 docker-compose run --rm web yarn install
-
-# db:setup← エラーになります！!(大きめのアプリだと外部キー制約エラーが出ます。)
-docker-compose run --rm web rails db:setup
-↓下記で対応して下さい！
-# rails db:create
+```
+DBのセットアップを1発で実行します。
+```bash
+docker-compose run --rm web rails db:create db:migrate db:seed
+```
+↓※下記と同じことです。
+rails db:create
+```bash
 docker-compose run --rm web rails db:create
+```
 
-# rails db:migrate
+rails db:migrate
+```bash
 docker-compose run --rm web rails db:migrate
+```
 
-# rails db:seed
- docker-compose run --rm web rails db:seed
+rails db:seed
+```bash
+docker-compose run --rm web rails db:seed
+```
 
-# railsサーバー起動(ローカルPC用)
-``zsh
+railsサーバー起動(ローカルPC用)
+```bash
 bin/dev
 ```
-
+実行権限がないとエラーになったら以下のコマンドを実行して下さい。
+```bash
 chmod +x bin/dev
+```
 
 
 これで、Dockerコンテナ内でRailsアプリケーションが実行され、ポート3000でアクセスできるようになります。簡単なセットアップ手順で、アプリケーションを試すことができます。
