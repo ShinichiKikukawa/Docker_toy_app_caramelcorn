@@ -1,7 +1,7 @@
-# README
+# README.md
 # Docker_toy_app_caramelcorn
 
-このプロジェクトは、Dockerコンテナ内で動作するRailsアプリケーションを構築するためのトイアプリです。以下は、MacでのDockerのインストール手順と、アプリケーションのセットアップ手順です。
+このプロジェクトは、Dockerコンテナ内で動作するRailsアプリケーション(6系)を構築するためのトイアプリです。以下は、MacでのDockerのインストール手順と、アプリケーションのセットアップ手順です。キャラメルコーンに深い意味はありません。甘くて美味しいイメージのアプリです。
 
 ## Dockerのインストール（Mac）
 MacでDockerをインストールするには、Homebrewを使用します。以下の手順に従ってインストールしてください。
@@ -18,14 +18,32 @@ MacでDockerをインストールするには、Homebrewを使用します。以
 ```bash
 brew install --cask docker
 ```
+
+### which dockerで自分のPCのどこにインストールされたか、念のため確認しておきましょう。
+```bash
+which docker
+```
+### docker -vでバージョンを念のため確認しておきましょう。
+```bash
+docker -v
+```
+
 ### docker-composeのダウンロード
 macの場合
-ターミナルで、docker-composeの1.29.2のバージョンをインストールする
+ターミナルで、docker-composeの1.29.2のバージョンをインストールします。
+```bash
 sudo curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-コマンドに実行権限を付与
+```
+
+### docker-composeのコマンドに実行権限を付与します。
+```bash
 sudo chmod +x /usr/local/bin/docker-compose
-docker-composeのバージョンを確認する
-[caramelcorn@MacBook-Pro-3 ~]$ docker-compose -v
+```
+### docker-composeのバージョンを確認します。
+```bash
+docker-compose -v
+```
+### 以下のように表示されたら成功です。
 docker-compose version 1.29.2, build 5becea4c
 
 
@@ -60,7 +78,7 @@ bin/init
 bin/end
 ```
 
-これで、bin/initでドッカーが1発で立ち上がります。また、1発でコンテナを止めて消せます。詳しくは、bin/initとbin/endの処理を見て、十分にご納得の上お使い下さい。bin/devも使えます。同様にbin /devの処理を見てからお使い下さい。
+これで、bin/initでDocker環境がコマンド1発で立ち上がります。また、1発でコンテナを止めて消せます。詳しくは、bin/initとbin/endの処理を見て、十分にご納得の上お使い下さい。bin/devも使えます。同様にbin/devの処理を見てからお使い下さい。
 
 これで、Dockerコンテナ内でRailsアプリケーションが実行され、ポート3000でアクセスできるようになります。簡単なセットアップ手順で、アプリケーションを試すことができます。
 
