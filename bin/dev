@@ -1,0 +1,34 @@
+#!/bin/sh
+#
+# 開発環境を起動する
+#
+# set-e Doc: https://qiita.com/youcune/items/fcfb4ad3d7c1edf9dc96
+set -e;
+
+# server.pidの削除
+cat <<EOS
+=============================
+===== delete server.pid =====
+=============================
+EOS
+rm -f ./tmp/pids/server.pid
+
+# アプリケーションの起動
+cat <<EOS
+====================================
+=== run docker-compose up -it db ===
+====================================
+EOS
+docker-compose up -d db
+
+# railsコンテナだけを一回削除して、railsコンテナを再度立ち上げ、コンテナ内に入りrailsを起動させる（いつも通りデバックができる）
+cat <<EOS
+========================================
+===== railsコンテナを起動中... =====
+========================================
+EOS
+if [ $# == 1 ]; then
+  docker-compose run --rm -p $*:3000 web rails s -b 0.0.0.0;
+else
+  docker-compose run --rm -p 3000:3000 web rails s -b 0.0.0.0;
+fi

@@ -25,22 +25,45 @@ Docker Desktopの起動: インストールが完了したら、Docker Desktop�
 Dockerがインストールされたら、以下の手順でアプリケーションのセットアップを行います。
 
 このプロジェクトをクローンします。
-```
+```zsh
 git clone https://github.com/ShinichiKikukawa/Docker_toy_app_caramelcorn.git
 ```
 
-```
+```zsh
 cd Docker_toy_app_caramelcorn
 ```
 
 Dockerコンテナをビルドします。
-```
+```zsh
 docker build -t toy_app_caramelcorn .
 ```
+# イメージのビルド
+docker-compose build
 
-Dockerコンテナを実行します。アプリケーションはポート3000でリッスンします。
+# bundle install
+docker-compose run --rm web bundle install
+
+# yarn install
+docker-compose run --rm web yarn install
+
+# db:setup← エラーになります！!(大きめのアプリだと外部キー制約エラーが出ます。)
+docker-compose run --rm web rails db:setup
+↓下記で対応して下さい！
+# rails db:create
+docker-compose run --rm web rails db:create
+
+# rails db:migrate
+docker-compose run --rm web rails db:migrate
+
+# rails db:seed
+ docker-compose run --rm web rails db:seed
+
+# railsサーバー起動(ローカルPC用)
+``zsh
+bin/dev
 ```
-docker run -p 3000:3000 toy_app_caramelcorn
-```
+
+chmod +x bin/dev
+
 
 これで、Dockerコンテナ内でRailsアプリケーションが実行され、ポート3000でアクセスできるようになります。簡単なセットアップ手順で、アプリケーションを試すことができます。
