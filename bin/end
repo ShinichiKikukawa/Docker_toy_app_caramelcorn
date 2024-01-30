@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# スクリプトが失敗した場合に直ちに終了する
+set -e
+# 実行中の全てのドッカーコンテナを停止
+echo "Stopping all Docker containers..."
+docker stop $(docker ps -aq)
+
+# すべてのドッカーコンテナを削除
+echo "Removing all Docker containers..."
+docker rm $(docker ps -aq)
+
+echo "All Docker containers have been stopped and removed."

@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# シェルスクリプトが失敗した場合には、直ちに終了する
+set -e;
+
+# イメージのビルド
+echo "Building Docker images...";
+docker-compose build;
+
+# bundle install
+echo "Running bundle install...";
+docker-compose run --rm web bundle install;
+
+# yarn installの前にキャッシュをクリア
+echo "Clearing Yarn cache...";
+docker-compose run --rm web yarn cache clean;
+
+# yarn install
+echo "Running yarn install...";
+docker-compose run --rm web yarn install --verbose;
+
+# db:create db:migrate db:seed
+echo "Setting up the database...";
+docker-compose run --rm web rails db:create db:migrate db:seed;
+
+# railsサーバー起動
+echo "Starting Rails server...";
+bin/dev;
