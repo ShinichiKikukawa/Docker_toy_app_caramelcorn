@@ -63,17 +63,17 @@ git clone https://github.com/ShinichiKikukawa/Docker_toy_app_caramelcorn.git
 cd Docker_toy_app_caramelcorn
 ```
 
-### 実行権限が付与します。以下のコマンドを実行して下さい。
+### 実行権限を付与します。以下のコマンドを実行して下さい。(bin/init等はカスタムスクリプトです。一連の環境構築コマンド群をひとまとめにしてあります。)
 ```bash
-chmod +x bin/dev bin/init bin/end
+chmod +x  bin/init bin/end bin/dev
 ```
 
-### bin/initのコマンドを売って1発で立ち上げます。
+### bin/initのコマンドを打って1発で立ち上げます。
 ```bash
 bin/init
 ```
 
-### bin/endのコマンドを売って1発でコンテナを止めて綺麗にします。
+### bin/endのコマンドを打って1発でコンテナを止めて綺麗にします。
 ```bash
 bin/end
 ```
@@ -210,3 +210,7 @@ docker-compose run --rm web rails db:seed
 ```bash
 bin/dev
 ```
+
+更新日時
+2023/1/31
+※最新の情報を提供するよう心がけていますが、古くなっていたら、ご連絡ください。
