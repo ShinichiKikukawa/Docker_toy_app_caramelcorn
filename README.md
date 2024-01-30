@@ -1,7 +1,7 @@
 # README
 # Docker_toy_app_caramelcorn
 
-このプロジェクトは、Dockerコンテナ内で動作するRailsアプリケーションを構築するためのものです。以下は、MacでのDockerのインストール手順と、アプリケーションのセットアップ手順です。
+このプロジェクトは、Dockerコンテナ内で動作するRailsアプリケーションを構築するためのトイアプリです。以下は、MacでのDockerのインストール手順と、アプリケーションのセットアップ手順です。
 
 ## Dockerのインストール（Mac）
 MacでDockerをインストールするには、Homebrewを使用します。以下の手順に従ってインストールしてください。
@@ -18,6 +18,16 @@ MacでDockerをインストールするには、Homebrewを使用します。以
 ```bash
 brew install --cask docker
 ```
+### docker-composeのダウンロード
+macの場合
+ターミナルで、docker-composeの1.29.2のバージョンをインストールする
+sudo curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+コマンドに実行権限を付与
+sudo chmod +x /usr/local/bin/docker-compose
+docker-composeのバージョンを確認する
+[caramelcorn@MacBook-Pro-3 ~]$ docker-compose -v
+docker-compose version 1.29.2, build 5becea4c
+
 
 Docker Desktopの起動: インストールが完了したら、Docker Desktopが起動するかどうか確認してください。必要に応じて、アプリケーションフォルダからDockerを起動してください。
 
@@ -35,46 +45,19 @@ git clone https://github.com/ShinichiKikukawa/Docker_toy_app_caramelcorn.git
 cd Docker_toy_app_caramelcorn
 ```
 
-### イメージをビルドします。
-```bash
-docker-compose build
-```
-
-### bundle installします。
-```bash
-docker-compose run --rm web bundle install
-```
-### yarn installします。
-```bash
-docker-compose run --rm web yarn install
-```
-### DBのセットアップを1発で実行します。
-```bash
-docker-compose run --rm web rails db:create db:migrate db:seed
-```
-↓※下記と同じことです。
-rails db:create
-```bash
-docker-compose run --rm web rails db:create
-```
-
-rails db:migrate
-```bash
-docker-compose run --rm web rails db:migrate
-```
-
-rails db:seed
-```bash
-docker-compose run --rm web rails db:seed
-```
-
-### railsサーバー起動(ローカルPC用)
-```bash
-bin/dev
-```
-### 実行権限がないとエラーになったら以下のコマンドを実行して下さい。
+### 実行権限が付与します。以下のコマンドを実行して下さい。
 ```bash
 chmod +x bin/dev bin/init bin/end
+```
+
+### bin/initのコマンドを売って1発で立ち上げます。
+```bash
+bin/init
+```
+
+### bin/endのコマンドを売って1発でコンテナを止めて綺麗にします。
+```bash
+bin/end
 ```
 
 これで、bin/initでドッカーが1発で立ち上がります。また、1発でコンテナを止めて消せます。詳しくは、bin/initとbin/endの処理を見て、十分にご納得の上お使い下さい。bin/devも使えます。同様にbin /devの処理を見てからお使い下さい。
@@ -169,4 +152,43 @@ else
   docker-compose run --rm -p 3000:3000 web rails s -b 0.0.0.0;
 fi
 
+```
+
+※以下のように一つ一つ実行しても立ち上がります。
+### イメージをビルドします。
+```bash
+docker-compose build
+```
+
+### bundle installします。
+```bash
+docker-compose run --rm web bundle install
+```
+### yarn installします。
+```bash
+docker-compose run --rm web yarn install
+```
+### DBのセットアップを1発で実行します。
+```bash
+docker-compose run --rm web rails db:create db:migrate db:seed
+```
+↓※下記と同じことです。
+rails db:create
+```bash
+docker-compose run --rm web rails db:create
+```
+
+rails db:migrate
+```bash
+docker-compose run --rm web rails db:migrate
+```
+
+rails db:seed
+```bash
+docker-compose run --rm web rails db:seed
+```
+
+### railsサーバー起動(ローカルPC用)
+```bash
+bin/dev
 ```
