@@ -74,7 +74,7 @@ bin/dev
 ```
 ### 実行権限がないとエラーになったら以下のコマンドを実行して下さい。
 ```bash
-chmod +x bin/dev
+chmod +x bin/dev bin/init bin/end
 ```
 
 
