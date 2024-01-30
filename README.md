@@ -1,25 +1,43 @@
 # README
+Docker_toy_app_caramelcorn
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Dockerのインストール（Mac）
+MacでDockerをインストールするには、Homebrewを使用します。以下の手順に従ってインストールしてください。
 
-Things you may want to cover:
+Homebrewのインストール: Homebrewがインストールされていない場合は、ターミナルで以下のコマンドを実行してHomebrewをインストールします。
 
-* Ruby version
+bash
+Copy code
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+Dockerのインストール: Homebrewを使用してDockerをインストールします。
 
-* System dependencies
+bash
+Copy code
+brew install --cask docker
+Docker Desktopの起動: インストールが完了したら、Docker Desktopが起動するかどうか確認してください。必要に応じて、アプリケーションフォルダからDockerを起動してください。
 
-* Configuration
+これで、Mac上でDockerが正常にインストールされました。
 
-* Database creation
+アプリケーションのセットアップ
+Dockerがインストールされたら、以下の手順でアプリケーションのセットアップを行います。
 
-* Database initialization
+このプロジェクトをクローンします。
+、、、
+git clone https://github.com/ShinichiKikukawa/Docker_toy_app_caramelcorn.git
+、、、
 
-* How to run the test suite
+、、、
+cd Docker_toy_app_caramelcorn
+、、、
 
-* Services (job queues, cache servers, search engines, etc.)
+Dockerコンテナをビルドします。
+、、、
+docker build -t toy_app_caramelcorn .
+、、、
 
-* Deployment instructions
+Dockerコンテナを実行します。アプリケーションはポート3000でリッスンします。
+、、、
+docker run -p 3000:3000 toy_app_caramelcorn
+、、、
 
-* ...
-# Docker_toy_app_caramelcorn
+これで、Dockerコンテナ内でRailsアプリケーションが実行され、ポート3000でアクセスできるようになります。簡単なセットアップ手順で、アプリケーションを試すことができます。
