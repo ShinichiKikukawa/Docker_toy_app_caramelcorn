@@ -46,6 +46,7 @@ docker-compose -v
 ### 以下のように表示されたら成功です。
 docker-compose version 1.29.2, build 5becea4c
 
+※ただし、Docker ComposeはDocker Desktop for Macに含まれている場合が多いので、別途インストールする必要がない場合もあります​。docker-compose -vで適切に表示されていれば、このトイアプリでは問題ありません。
 
 Docker Desktopの起動: インストールが完了したら、Docker Desktopが起動するかどうか確認してください。必要に応じて、アプリケーションフォルダからDockerを起動してください。
 
