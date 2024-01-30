@@ -80,3 +80,93 @@ chmod +x bin/dev bin/init bin/end
 これで、bin/initでドッカーが1発で立ち上がります。また、1発でコンテナを止めて消せます。詳しくは、bin/initとbin/endの処理を見て、十分にご納得の上お使い下さい。bin/devも使えます。同様にbin /devの処理を見てからお使い下さい。
 
 これで、Dockerコンテナ内でRailsアプリケーションが実行され、ポート3000でアクセスできるようになります。簡単なセットアップ手順で、アプリケーションを試すことができます。
+
+bin/initの処理
+```
+#!/bin/sh
+
+# シェルスクリプトが失敗した場合には、直ちに終了する
+set -e;
+
+# イメージのビルド
+echo "Building Docker images...";
+docker-compose build;
+
+# bundle install
+echo "Running bundle install...";
+docker-compose run --rm web bundle install;
+
+# yarn installの前にキャッシュをクリア
+echo "Clearing Yarn cache...";
+docker-compose run --rm web yarn cache clean;
+
+# yarn install
+echo "Running yarn install...";
+docker-compose run --rm web yarn install --verbose;
+
+# db:create db:migrate db:seed
+echo "Setting up the database...";
+docker-compose run --rm web rails db:create db:migrate db:seed;
+
+# railsサーバー起動
+echo "Starting Rails server...";
+bin/dev;
+
+```
+
+bin/endの処理
+```
+#!/bin/sh
+
+# スクリプトが失敗した場合に直ちに終了する
+set -e
+# 実行中の全てのドッカーコンテナを停止
+echo "Stopping all Docker containers..."
+docker stop $(docker ps -aq)
+
+# すべてのドッカーコンテナを削除
+echo "Removing all Docker containers..."
+docker rm $(docker ps -aq)
+
+echo "All Docker containers have been stopped and removed."
+
+```
+
+bin/devの処理
+```
+#!/bin/sh
+#
+# 開発環境を起動する
+#
+# set-e Doc: https://qiita.com/youcune/items/fcfb4ad3d7c1edf9dc96
+set -e;
+
+# server.pidの削除
+cat <<EOS
+=============================
+===== delete server.pid =====
+=============================
+EOS
+rm -f ./tmp/pids/server.pid
+
+# アプリケーションの起動
+cat <<EOS
+====================================
+=== run docker-compose up -it db ===
+====================================
+EOS
+docker-compose up -d db
+
+# railsコンテナだけを一回削除して、railsコンテナを再度立ち上げ、コンテナ内に入りrailsを起動させる（いつも通りデバックができる）
+cat <<EOS
+========================================
+===== railsコンテナを起動中... =====
+========================================
+EOS
+if [ $# == 1 ]; then
+  docker-compose run --rm -p $*:3000 web rails s -b 0.0.0.0;
+else
+  docker-compose run --rm -p 3000:3000 web rails s -b 0.0.0.0;
+fi
+
+```
