@@ -4,10 +4,10 @@
 このプロジェクトは、Dockerコンテナ内で動作するRailsアプリケーション(7.1.3)、ruby(3.2.2)を構築するためのトイアプリです。以下は、MacでのDockerのインストール手順と、アプリケーションのセットアップ手順です。キャラメルコーンに深い意味はありません。甘くて美味しいイメージのアプリです。プラスのイメージが大切です。苦手意識を一緒に克服しましょう。
 
 ## 想定する開発者
-macユーザー※windouwsは詳しくないので省略させていただきます。
-rails学習初心者
-docker未使用者またはdocker初心者
-dockerに苦手意識がある方
+- macユーザー※windouwsは詳しくないので省略させていただきます。
+- rails学習初心者
+- docker未使用者またはdocker初心者
+- dockerに苦手意識がある方
 
 ## DockerとRailsのバージョン互換性
 このプロジェクトは、以下のDockerとRailsのバージョンでテストされています。
@@ -51,48 +51,48 @@ MacでDockerをインストールするには、Homebrewを使用します。以
 ※homebrew経由でなく、公式からダウンロードすることはお勧めしません。何らかの原因でdocker自体を再インストールする必要があった時、アンインストールしたとしてもファイルが残ってしまう可能性が捨て切れないからです。
 あくまで、パッケージ管理ツールを適切に使うことをお勧めします。
 
-### Homebrewのインストール: Homebrewがインストールされていない場合は、ターミナルで以下のコマンドを実行してHomebrewをインストールします。
+## Homebrewのインストール: Homebrewがインストールされていない場合は、ターミナルで以下のコマンドを実行してHomebrewをインストールします。
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
-### Dockerのインストール: Homebrewを使用してDockerをインストールします。
+## Dockerのインストール: Homebrewを使用してDockerをインストールします。
 
 ```bash
 brew install --cask docker
 ```
 
-### which dockerで自分のPCのどこにインストールされたか、念のため確認しておきましょう。
+## which dockerで自分のPCのどこにインストールされたか、念のため確認しておきましょう。
 ```bash
 which docker
 ```
-### docker -vでバージョンを念のため確認しておきましょう。
+## docker -vでバージョンを念のため確認しておきましょう。
 ```bash
 docker -v
 ```
 
-### docker-compose -vでインストールされているか、またバージョンを念のため確認しておきましょう。
+## docker-compose -vでインストールされているか、またバージョンを念のため確認しておきましょう。
 ```bash
 docker-compose -v
 ```
 インストールされていなければ、以下に進みます。
 
-### docker-composeのダウンロード
+## docker-composeのダウンロード
 macの場合
 ターミナルで、docker-composeの1.29.2のバージョンをインストールします。
 ```bash
 sudo curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 ```
 
-### docker-composeのコマンドに実行権限を付与します。
+## docker-composeのコマンドに実行権限を付与します。
 ```bash
 sudo chmod +x /usr/local/bin/docker-compose
 ```
-### docker-composeのバージョンを確認します。
+## docker-composeのバージョンを確認します。
 ```bash
 docker-compose -v
 ```
-### 以下のように表示されたら成功です。
+## 以下のように表示されたら成功です。
 docker-compose version 1.29.2, build 5becea4c
 
 ※ただし、Docker ComposeはDocker Desktop for Macに含まれている場合が多いので、別途インストールする必要がない場合もあります​。docker-compose -vで適切に表示されていれば、このトイアプリでは問題ありません。
@@ -104,26 +104,26 @@ Docker Desktopの起動: インストールが完了したら、Docker Desktop�
 ## アプリケーションのセットアップ
 Dockerがインストールされたら、以下の手順でアプリケーションのセットアップを行います。
 
-### このプロジェクトをクローンします。
+## このプロジェクトをクローンします。
 ```bash
 git clone https://github.com/ShinichiKikukawa/Docker_toy_app_caramelcorn.git
 ```
-### チェンジディレクトリします。
+## チェンジディレクトリします。
 ```bash
 cd Docker_toy_app_caramelcorn
 ```
 
-### 実行権限を付与します。以下のコマンドを実行して下さい。(bin/init等はカスタムスクリプトです。一連の環境構築コマンド群をひとまとめにしてあります。)
+## 実行権限を付与します。以下のコマンドを実行して下さい。(bin/init等はカスタムスクリプトです。一連の環境構築コマンド群をひとまとめにしてあります。)
 ```bash
 chmod +x  bin/init bin/end bin/dev
 ```
 
-### bin/initのコマンドを打って1発で立ち上げます。
+## bin/initのコマンドを打って1発で立ち上げます。
 ```bash
 bin/init
 ```
 
-### bin/endのコマンドを打って1発でコンテナを止めて綺麗にします。
+## bin/endのコマンドを打って1発でコンテナを止めて綺麗にします。
 ```bash
 bin/end
 ```
@@ -261,6 +261,35 @@ docker-compose run --rm web rails db:seed
 bin/dev
 ```
 
+# 開発コマンド
+## コンテナ起動＜binding.irbを使いたい時（docker-compose upより常にこっちの方がいいかも）＞
+bin/dev
+
+## railsサーバー起動(cloud9の方)
+bin/dev 8080
+
+## コンテナ起動
+docker-compose up
+
+## コンテナ停止
+docker-compose down
+
+--- 挙動がおかしくなった時、一度docker-composeコマンドで作成したリソースを削除するコマンド #---
+    docker-compose down --rmi all --volumes --remove-orphans
+
+## bundle install
+docker-compose run --rm app bundle install
+
+## rails db:create
+docker-compose run --rm app rails db:create
+
+## rails db:migrate
+docker-compose run --rm app rails db:migrate
+
+## rails db:seed
+docker-compose run --rm app rails db:seed
+
+
 ## よくあるエラーと対処法
 - **エラー: Dockerコンテナが起動しない**
   - 対処法: Docker Desktopが正常に起動しているか確認し、必要に応じてDocker Desktopを再起動してください。
@@ -280,7 +309,7 @@ bin/dev
 これらのエラーは一般的なものであり、多くの場合、上記の対処法で解決可能です。しかし、それでも問題が解決しない場合は、プロジェクトのissueトラッカーで問題を報告してください。
 
 
-## コントリビューションガイド
+# コントリビューションガイド
 
 このプロジェクトへの貢献に興味がある方のためのガイドラインです：
 
