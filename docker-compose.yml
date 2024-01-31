@@ -1,7 +1,7 @@
 services:
   #dbコンテナ
   db:
-    image: mariadb:10.9
+    image: mariadb:11.2.2
     environment:
       MARIADB_ROOT_PASSWORD: password
     volumes:
