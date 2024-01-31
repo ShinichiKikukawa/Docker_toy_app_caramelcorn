@@ -65,6 +65,12 @@ which docker
 docker -v
 ```
 
+### docker-compose -vでインストールされているか、またバージョンを念のため確認しておきましょう。
+```bash
+docker-compose -v
+```
+インストールされていなければ、以下に進みます。
+
 ### docker-composeのダウンロード
 macの場合
 ターミナルで、docker-composeの1.29.2のバージョンをインストールします。
