@@ -1,5 +1,5 @@
 #Docker Hubからruby:3.0.5のイメージをプルする
-FROM ruby:3.3.0
+FROM ruby:3.2.2
 
 #debian系のためapt-getを使用してnode.jsとyarnをインストール
 RUN apt-get update -qq
